@@ -9,8 +9,32 @@
     <meta name="apple-mobile-web-app-title" content="MRR Keeper" />
     <meta name="description" content="Roster, inventory, locations, jobs and operating sessions for your model railroad. Works offline; your data stays on your device." />
     <title>Model Railroad Record Keeper</title>
-    <script type="module" crossorigin src="/assets/index-BWBwqgls.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-5CjkMiOl.css">
+    <style>
+      /* First-launch splash (2026-11-01). Inside #root, so React replaces
+         it the moment the app draws. Colours written out here because the
+         app's stylesheet has not loaded yet; they match --page-bg,
+         --primary and --dark-green in src/index.css. Keep the ring alike
+         with src/components/Spinner.tsx. */
+      body { margin: 0; background: #ececec; }
+      :root[data-theme='dark'] body { background: #252525; }
+      .boot { min-height: 100vh; display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 16px;
+        font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
+      .boot-ring { width: 44px; height: 44px; border-radius: 50%;
+        border: 4px solid rgba(46, 139, 87, 0.2); border-top-color: #2e8b57;
+        animation: boot-turn 0.8s linear infinite; }
+      :root[data-theme='dark'] .boot-ring { border-color: rgba(63, 167, 107, 0.25);
+        border-top-color: #3fa76b; }
+      .boot-title { font-size: 19px; font-weight: 700; color: #1a3c2a; }
+      .boot-hint { font-size: 15px; color: #1a3c2a; max-width: 340px;
+        text-align: center; line-height: 1.4; }
+      :root[data-theme='dark'] .boot-title,
+      :root[data-theme='dark'] .boot-hint { color: #ececec; }
+      @keyframes boot-turn { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) { .boot-ring { animation-duration: 2.4s; } }
+    </style>
+    <script type="module" crossorigin src="/assets/index-DSNpRFkM.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cr4TBiTM.css">
   <link rel="manifest" href="/manifest.webmanifest"></head>
   <body>
     <script>
@@ -31,6 +55,12 @@
         }
       })()
     </script>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot" role="status" aria-live="polite">
+        <div class="boot-ring" aria-hidden="true"></div>
+        <div class="boot-title">Getting things ready&hellip;</div>
+        <div class="boot-hint">The first launch takes a little longer while the app saves itself for offline use.</div>
+      </div>
+    </div>
   </body>
 </html>
